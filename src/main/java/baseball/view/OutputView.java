@@ -1,6 +1,6 @@
 package baseball.view;
 
-import baseball.view.constant.ResultType;
+import baseball.view.constant.ViewResultType;
 
 public class OutputView {
 
@@ -16,7 +16,7 @@ public class OutputView {
     }
 
     public void displayResult(int strike, int ball) {
-        String resultMessage = ResultType.getResultMessage(strike, ball);
+        String resultMessage = ViewResultType.getResultMessage(strike, ball);
         System.out.println(resultMessage);
     }
 }

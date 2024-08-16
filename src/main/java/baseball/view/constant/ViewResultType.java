@@ -3,7 +3,7 @@ package baseball.view.constant;
 import java.util.Arrays;
 import java.util.function.BiFunction;
 
-public enum ResultType {
+public enum ViewResultType {
 
     NOTHING((strike, ball) -> strike == 0 && ball == 0, (strike, ball) -> "낫싱"),
     ONLY_BALL((strike, ball) -> strike == 0 && ball != 0, (strike, ball) -> ball + "볼"),
@@ -14,7 +14,7 @@ public enum ResultType {
     private final BiFunction<Integer, Integer, String> messageFunction;
 
     // private constructor
-    ResultType(BiFunction<Integer, Integer, Boolean> biFunction, BiFunction<Integer, Integer, String> messageFunction) {
+    ViewResultType(BiFunction<Integer, Integer, Boolean> biFunction, BiFunction<Integer, Integer, String> messageFunction) {
         this.biFunction = biFunction;
         this.messageFunction = messageFunction;
     }
