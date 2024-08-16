@@ -1,5 +1,6 @@
 package baseball.controller;
 
+import baseball.controller.dto.BaseballNumberDto;
 import baseball.controller.restarter.RestartState;
 import baseball.model.pitcher.Pitcher;
 import baseball.model.umpire.Umpire;
@@ -37,7 +38,8 @@ public class GameController {
         BaseballNumber pitcherNumber = pitcher.generate();
         // 무상태
         while (true) {
-            BaseballNumber hitterNumber = BaseballNumber.of(in.inputBaseballNumber());
+            BaseballNumberDto baseballNumberDto = in.inputBaseballNumber();
+            BaseballNumber hitterNumber = BaseballNumber.of(baseballNumberDto.numbers());
 
             int strike = umpire.determineStrike(pitcherNumber, hitterNumber);
             int ball = umpire.determineBall(pitcherNumber, hitterNumber, strike);

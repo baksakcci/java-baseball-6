@@ -1,6 +1,5 @@
 package baseball.model.vo;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -18,27 +17,14 @@ public class BaseballNumber {
     }
 
     // static factory method
-    public static BaseballNumber of(String input) {
-        validateIsNumeric(input);
-        List<Integer> integerList = Arrays.stream(input.split(""))
-                .map(Integer::parseInt)
-                .toList();
-        return new BaseballNumber(integerList);
-    }
-
     public static BaseballNumber of(List<Integer> input) {
         return new BaseballNumber(input);
     }
 
     // validation
-    private static void validateIsNumeric(String input) {
-        if (!Character.isDigit(input.charAt(0))) {
-            throw new IllegalArgumentException();
-        }
-    }
     private void validateNotIncludeZero(List<Integer> input) {
         if (isIncludeZero(input)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("0을 포함할 수 없습니다.");
         }
     }
 
@@ -49,13 +35,13 @@ public class BaseballNumber {
 
     private void validateNot3Digit(List<Integer> input) {
         if (input.size() != 3) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("3자리가 아닙니다.");
         }
     }
 
     private void validateDuplicate(List<Integer> input) {
         if (isDuplicateEachNumber(input)){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("중복된 숫자가 있습니다.");
         }
     }
 
