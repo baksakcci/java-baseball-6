@@ -1,8 +1,7 @@
 package baseball.controller;
 
-import baseball.model.pitcher.ComputerPitcher;
+import baseball.controller.restarter.RestartState;
 import baseball.model.pitcher.Pitcher;
-import baseball.model.restarter.RestartState;
 import baseball.model.umpire.Umpire;
 import baseball.model.vo.BaseballNumber;
 import baseball.view.InputView;
@@ -13,11 +12,13 @@ public class GameController {
     private final InputView in;
     private final OutputView out;
     private final Pitcher pitcher;
+    private final Umpire umpire;
 
-    public GameController() {
-        in = new InputView();
-        out = new OutputView();
-        pitcher = new ComputerPitcher();
+    public GameController(InputView in, OutputView out, Pitcher pitcher, Umpire umpire) {
+        this.in = in;
+        this.out = out;
+        this.pitcher = pitcher;
+        this.umpire = umpire;
     }
 
     public void run() {
@@ -32,15 +33,18 @@ public class GameController {
     }
 
     private void startGame() {
-        Umpire umpire = Umpire.create();
+        // 게임 끝날 때 까지 상태 지속
         BaseballNumber pitcherNumber = pitcher.generate();
+        // 무상태
         while (true) {
             BaseballNumber hitterNumber = BaseballNumber.of(in.inputBaseballNumber());
 
-            umpire.determineStrikeAndBall(pitcherNumber, hitterNumber);
-            out.displayResult(umpire.getStrike(), umpire.getBall());
+            int strike = umpire.determineStrike(pitcherNumber, hitterNumber);
+            int ball = umpire.determineBall(pitcherNumber, hitterNumber, strike);
 
-            if (umpire.isStrikeOut()) {
+            out.displayResult(strike, ball);
+
+            if (strike == 3) {
                 break;
             }
         }
