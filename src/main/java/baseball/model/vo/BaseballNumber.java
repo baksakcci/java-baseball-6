@@ -30,6 +30,45 @@ public class BaseballNumber {
         return new BaseballNumber(input);
     }
 
+    // validation
+    private static void validateIsNumeric(String input) {
+        if (!Character.isDigit(input.charAt(0))) {
+            throw new IllegalArgumentException();
+        }
+    }
+    private void validateNotIncludeZero(List<Integer> input) {
+        if (isIncludeZero(input)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private boolean isIncludeZero(List<Integer> input) {
+        return input.stream()
+                .anyMatch(n -> n == 0);
+    }
+
+    private void validateNot3Digit(List<Integer> input) {
+        if (input.size() != 3) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void validateDuplicate(List<Integer> input) {
+        if (isDuplicateEachNumber(input)){
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private boolean isDuplicateEachNumber(List<Integer> input) {
+        return new HashSet<>(input)
+                .size() != 3;
+    }
+
+    // getter
+    public List<Integer> getNumber() {
+        return List.copyOf(number);
+    }
+
     // immutable object
     @Override
     public boolean equals(Object o) {
@@ -46,49 +85,5 @@ public class BaseballNumber {
     @Override
     public int hashCode() {
         return Objects.hash(number);
-    }
-
-    // exception handling
-    private static void validateIsNumeric(String input) {
-        if (!Character.isDigit(input.charAt(0))) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private void validateNotIncludeZero(List<Integer> input) {
-        if (isIncludeZero(input)) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private void validateNot3Digit(List<Integer> input) {
-        if (is3Digit(input)) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private void validateDuplicate(List<Integer> input) {
-        if (isDuplicateEachNumber(input)){
-            throw new IllegalArgumentException();
-        }
-    }
-
-    // validation
-    private boolean isIncludeZero(List<Integer> input) {
-        return input.stream()
-                .anyMatch(n -> n == 0);
-    }
-    private boolean is3Digit(List<Integer> input) {
-        return input.size() != 3;
-    }
-
-    private boolean isDuplicateEachNumber(List<Integer> input) {
-        return new HashSet<>(input)
-                .size() != 3;
-    }
-
-    // getter
-    public List<Integer> getNumber() {
-        return List.copyOf(number);
     }
 }
