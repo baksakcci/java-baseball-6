@@ -38,9 +38,9 @@ public class UmpireTest {
         BaseballNumber 타자 = 야구숫자_생성(1, 2, 4);
 
         // when
-        int 스트아리크_갯수 = umpire.determineStrike(투수, 타자);
+        int 스트라이크_갯수 = umpire.determineStrike(투수, 타자);
 
         // then
-        assertThat(스트아리크_갯수).isEqualTo(2);
+        assertThat(스트라이크_갯수).isEqualTo(2);
     }
 }
