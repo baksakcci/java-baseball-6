@@ -19,8 +19,8 @@ public class BaseballNumberFixture {
         return new ArrayList<>(){{add(1); add(2); add(0);}};
     }
 
-    public static BaseballNumber 야구숫자_123_생성() {
-        return BaseballNumber.of(new ArrayList<>(){{add(1); add(2); add(3);}});
+    public static BaseballNumber 야구숫자_생성(int... num) {
+        return BaseballNumber.of(new ArrayList<>(){{add(num[0]); add(num[1]); add(num[2]);}});
     }
 
 }

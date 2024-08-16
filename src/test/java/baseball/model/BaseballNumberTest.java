@@ -3,7 +3,7 @@ package baseball.model;
 import static baseball.fixture.BaseballNumberFixture.숫자_0포함_생성;
 import static baseball.fixture.BaseballNumberFixture.숫자_4자리_생성;
 import static baseball.fixture.BaseballNumberFixture.숫자_첫째_셋째_중복_생성;
-import static baseball.fixture.BaseballNumberFixture.야구숫자_123_생성;
+import static baseball.fixture.BaseballNumberFixture.야구숫자_생성;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -35,7 +35,7 @@ public class BaseballNumberTest {
     }
 
     @Test
-    void 각_숫자마다_중복이_있을_꼉우_예외_발생() {
+    void 각_숫자마다_중복이_있을_경우_예외_발생() {
         // given
         List<Integer> 숫자_첫째_셋째_중복 = 숫자_첫째_셋째_중복_생성();
 
@@ -47,8 +47,8 @@ public class BaseballNumberTest {
     @Test
     void 불변성_테스트하기() {
         // given
-        BaseballNumber 숫자_1 = 야구숫자_123_생성();
-        BaseballNumber 숫자_2 = 야구숫자_123_생성();
+        BaseballNumber 숫자_1 = 야구숫자_생성(1, 2, 3);
+        BaseballNumber 숫자_2 = 야구숫자_생성(1, 2, 3);
 
         // when & then
         assertThat(숫자_1.equals(숫자_2)).isTrue();

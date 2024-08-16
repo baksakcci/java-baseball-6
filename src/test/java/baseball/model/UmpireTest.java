@@ -1,5 +1,6 @@
 package baseball.model;
 
+import static baseball.fixture.BaseballNumberFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import baseball.model.umpire.Umpire;
@@ -19,27 +20,27 @@ public class UmpireTest {
     @Test
     void 볼_갯수_계산하기() {
         // given
-        BaseballNumber pitcher = BaseballNumber.of("123");
-        BaseballNumber hitter = BaseballNumber.of("312");
-        int strike = umpire.determineStrike(pitcher, hitter);
+        BaseballNumber 투수 = 야구숫자_생성(1, 2, 3);
+        BaseballNumber 타자 = 야구숫자_생성(3, 1, 2);
+        int 스트라이크_갯수 = umpire.determineStrike(투수, 타자);
 
         // when
-        int ball = umpire.determineBall(pitcher, hitter, strike);
+        int 볼_개수 = umpire.determineBall(투수, 타자, 스트라이크_갯수);
 
         // then
-        assertThat(ball).isEqualTo(3);
+        assertThat(볼_개수).isEqualTo(3);
     }
 
     @Test
     void 스트라이크_갯수_계산하기() {
         // given
-        BaseballNumber pitcher = BaseballNumber.of("123");
-        BaseballNumber hitter = BaseballNumber.of("124");
+        BaseballNumber 투수 = 야구숫자_생성(1, 2, 3);
+        BaseballNumber 타자 = 야구숫자_생성(1, 2, 4);
 
         // when
-        int strike = umpire.determineStrike(pitcher, hitter);
+        int 스트아리크_갯수 = umpire.determineStrike(투수, 타자);
 
         // then
-        assertThat(strike).isEqualTo(2);
+        assertThat(스트아리크_갯수).isEqualTo(2);
     }
 }
