@@ -1,4 +1,4 @@
-package baseball.unitTest;
+package baseball.model;
 
 import static org.assertj.core.api.Assertions.*;
 

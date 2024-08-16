@@ -1,10 +1,10 @@
-package baseball.unitTest;
+package baseball.controller;
 
-import static baseball.model.restarter.RestartState.END_GAME;
-import static baseball.model.restarter.RestartState.RESTART_GAME;
+import static baseball.controller.restarter.RestartState.END_GAME;
+import static baseball.controller.restarter.RestartState.RESTART_GAME;
 import static org.assertj.core.api.Assertions.*;
 
-import baseball.model.restarter.RestartState;
+import baseball.controller.restarter.RestartState;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

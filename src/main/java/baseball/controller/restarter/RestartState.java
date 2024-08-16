@@ -1,4 +1,4 @@
-package baseball.model.restarter;
+package baseball.controller.restarter;
 
 import java.util.Arrays;
 
