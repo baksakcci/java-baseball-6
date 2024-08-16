@@ -1,53 +1,57 @@
 package baseball.model;
 
-import static org.assertj.core.api.Assertions.*;
+import static baseball.fixture.BaseballNumberFixture.숫자_0포함_생성;
+import static baseball.fixture.BaseballNumberFixture.숫자_4자리_생성;
+import static baseball.fixture.BaseballNumberFixture.숫자_첫째_셋째_중복_생성;
+import static baseball.fixture.BaseballNumberFixture.야구숫자_123_생성;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import baseball.model.vo.BaseballNumber;
-import java.util.stream.Stream;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
+import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 
-@DisplayName("[BaseballNumber] VO 테스트")
+@SuppressWarnings("NonAsciiCharacters")
 public class BaseballNumberTest {
 
-    @DisplayName("[new] 생성자 테스트")
-    @Nested
-    class CreateTest {
+    @Test
+    void 숫자에_0을_포함할_경우_예외_발생() {
+        // given
+        List<Integer> 숫자_0포함 = 숫자_0포함_생성();
 
-        static Stream<Arguments> provideInput() {
-            return Stream.of(
-                    Arguments.of("숫자가 아닐 경우 예외 발생", "a"),
-                    Arguments.of("0이 포함됐을 경우 예외 발생", "120"),
-                    Arguments.of("3자리 숫자가 아닐 경우 예외 발생", "1234"),
-                    Arguments.of("각 자리수가 중복된 숫자일 경우 예외 발생", "131")
-            );
-        }
-
-        @ParameterizedTest(name = "[EXCEPTION] {0}")
-        @MethodSource("provideInput")
-        @DisplayName("[validate] 입력 검증 테스트")
-        void should_throwException_when_notPassValidation(String message, String input) {
-            assertThatIllegalArgumentException()
-                    .isThrownBy(() -> BaseballNumber.of(input));
-        }
+        // when & then
+        assertThatThrownBy(() -> BaseballNumber.of(숫자_0포함))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("[VO] 불변성 테스트")
-    @Nested
-    class ImmutableTest {
+    @Test
+    void 숫자가_3자리가_아닐_경우_예외_발생() {
+        // given
+        List<Integer> 숫자_4자리 = 숫자_4자리_생성();
 
-        @Test
-        @DisplayName("[SUCCESS] 같은 숫자를 가진 두 객체가 같은 객체일 경우 true를 반환한다")
-        void should_success_when_isSameObject() {
-            BaseballNumber number1 = BaseballNumber.of("123");
-            BaseballNumber number2 = BaseballNumber.of("123");
+        // when & then
+        assertThatThrownBy(() -> BaseballNumber.of(숫자_4자리))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 
-            assertThat(number1.equals(number2)).isTrue();
-            assertThat(number1.hashCode()).isEqualTo(number2.hashCode());
-        }
+    @Test
+    void 각_숫자마다_중복이_있을_꼉우_예외_발생() {
+        // given
+        List<Integer> 숫자_첫째_셋째_중복 = 숫자_첫째_셋째_중복_생성();
+
+        // when & then
+        assertThatThrownBy(() -> BaseballNumber.of(숫자_첫째_셋째_중복))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 불변성_테스트하기() {
+        // given
+        BaseballNumber 숫자_1 = 야구숫자_123_생성();
+        BaseballNumber 숫자_2 = 야구숫자_123_생성();
+
+        // when & then
+        assertThat(숫자_1.equals(숫자_2)).isTrue();
+        assertThat(숫자_1.hashCode()).isEqualTo(숫자_2.hashCode());
     }
 }
